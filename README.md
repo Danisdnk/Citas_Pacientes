@@ -1,3 +1,7 @@
+# Creacion de turnos para pacientes 
+Es un proyecto que usa los conceptos basicos de react como useState,pasar valores entre componentes y validacion del formularios para listarlo en una tarjeta nueva que permite eliminarlos una vez agregados.  
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
