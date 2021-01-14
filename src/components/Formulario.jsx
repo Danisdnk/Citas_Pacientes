@@ -1,12 +1,13 @@
 import React, { Fragment, useState } from 'react';
-const Formulario = () => {
+import uuid from 'uuid/dist/v4';
+const Formulario = ({ crearCita }) => {
   //crear state de citas
   const [cita, actualizarCita] = useState({
     mascota: '',
     propietario: '',
+    sintoma: '',
     fecha: '',
     hora: '',
-    sintomas: ''
   });
   const [error, actualizarError] = useState(false);
 
@@ -29,11 +30,24 @@ const Formulario = () => {
       actualizarError(true);
       return
     }
-  }
-  //asignar cita
-  //crear cita
-  //reiniciar cita
+    //si la validacion es correcta el state se actualiza a "sin errores"
+    actualizarError(false);
 
+    //asignar cita UUID genera un id unico para cada cita.id
+    cita.id = uuid();
+    //crear cita
+    crearCita(cita);
+  //reiniciar cita
+  actualizarCita({
+    mascota: '',
+    propietario: '',
+    sintoma: '',
+    fecha: '',
+    hora: '',
+  });
+  }
+
+ 
   return (
     <Fragment>
       <h1>Crear cita</h1>
@@ -52,7 +66,7 @@ const Formulario = () => {
         <label>Nombre Dueño</label>
         <input
           type="text"
-          name="priopetario"
+          name="propietario"
           className="u-full-width"
           placeholder="Nombre Dueño de las mascota"
           value={propietario}
