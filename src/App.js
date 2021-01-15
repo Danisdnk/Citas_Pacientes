@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from 'react';
-import { uuid } from 'uuid/dist/v4';
-import Formulario from './components/Formulario'
+import Formulario from './components/Formulario';
+import Cita from "./components/Cita";
+//import uuid from 'uuid/dist/v4';
+
 function App() {
   const [citas, guardarCitas] = useState([]);
 
@@ -22,7 +24,14 @@ function App() {
             />
           </div>
           <div className="one-half column">
+            <h2> Administrar creadas</h2>
+            {citas.map(cita => (
+              <Cita
+                key={cita.id}
+                cita={cita}
+              />
 
+            ))}
           </div>
         </div>
       </div>
