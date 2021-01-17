@@ -6,12 +6,17 @@ import Cita from "./components/Cita";
 function App() {
   const [citas, guardarCitas] = useState([]);
 
+
   const crearCita = cita => {
     guardarCitas([
       ...citas,
       cita
     ]);
 
+  }
+  const eliminarCita = id => {
+    const nuevasCitas = citas.filter(cita => cita.id !== id)
+    guardarCitas(nuevasCitas);
   }
   return (
     <Fragment>
@@ -28,7 +33,8 @@ function App() {
             {citas.map(cita => (
               <Cita
                 key={cita.id}
-                cita={cita}
+                cita={cita}    
+                eliminarCita={eliminarCita}     
               />
 
             ))}
