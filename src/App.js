@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import Formulario from './components/Formulario';
 import Cita from "./components/Cita";
 //import uuid from 'uuid/dist/v4';
@@ -14,6 +14,13 @@ function App() {
     ]);
 
   }
+  const titulo = citas.length === 0 ? 'No hay Citas' : 'Administrar tus citas'
+
+  useEffect(() => {
+    console.log("preparando localstorage");
+  }, [citas]);
+
+
   const eliminarCita = id => {
     const nuevasCitas = citas.filter(cita => cita.id !== id)
     guardarCitas(nuevasCitas);
@@ -29,12 +36,12 @@ function App() {
             />
           </div>
           <div className="one-half column">
-            <h2> Administrar creadas</h2>
+            <h2> {titulo}</h2>
             {citas.map(cita => (
               <Cita
                 key={cita.id}
-                cita={cita}    
-                eliminarCita={eliminarCita}     
+                cita={cita}
+                eliminarCita={eliminarCita}
               />
 
             ))}
