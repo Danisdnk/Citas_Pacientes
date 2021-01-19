@@ -4,6 +4,13 @@ import Cita from "./components/Cita";
 //import uuid from 'uuid/dist/v4';
 
 function App() {
+
+  let citasIniciales = JSON.parse(localStorage.getItem('citas'));
+  if (!citasIniciales) {
+    citasIniciales = [];
+
+  }
+
   const [citas, guardarCitas] = useState([]);
 
 
@@ -17,7 +24,14 @@ function App() {
   const titulo = citas.length === 0 ? 'No hay Citas' : 'Administrar tus citas'
 
   useEffect(() => {
-    console.log("preparando localstorage");
+    let citasIniciales = JSON.parse(localStorage.getItem('citas'));
+    if (citasIniciales) {
+      localStorage.setItem('citas', JSON.stringify(citas));
+
+    } else {
+      localStorage.setItem('citas', JSON.stringify([]));
+
+    }
   }, [citas]);
 
 
@@ -36,7 +50,7 @@ function App() {
             />
           </div>
           <div className="one-half column">
-            <h2> {titulo}</h2>
+            <h2> {titulo} </h2>
             {citas.map(cita => (
               <Cita
                 key={cita.id}

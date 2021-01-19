@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import uuid from 'uuid/dist/v4';
+import PropTypes from 'prop-types';
 const Formulario = ({ crearCita }) => {
   //crear state de citas
   const [cita, actualizarCita] = useState({
@@ -13,7 +14,7 @@ const Formulario = ({ crearCita }) => {
 
 
   const actualizarState = e => {
-    console.log('escribiendo...');
+    // console.log('escribiendo...');
     actualizarCita({
       ...cita, //guardo la referencia anterior del state para no perderla
       [e.target.name]: e.target.value //guardo en mi objeto mi value
@@ -24,30 +25,26 @@ const Formulario = ({ crearCita }) => {
   //validar
   const submitCita = e => {
     e.preventDefault();
-    if (
-      mascota.trim() === '' || propietario.trim() === '' || sintoma.trim() === '' || fecha.trim() === '' || hora.trim() === ''
-    ) {
+    if (mascota.trim() === '' || propietario.trim() === '' || sintoma.trim() === '' || fecha.trim() === '' || hora.trim() === '') {
       actualizarError(true);
       return
     }
     //si la validacion es correcta el state se actualiza a "sin errores"
     actualizarError(false);
-
     //asignar cita UUID genera un id unico para cada cita.id
     cita.id = uuid();
     //crear cita
     crearCita(cita);
-  //reiniciar cita
-  actualizarCita({
-    mascota: '',
-    propietario: '',
-    sintoma: '',
-    fecha: '',
-    hora: '',
-  });
+    //reiniciar cita
+    actualizarCita({
+      mascota: '',
+      propietario: '',
+      sintoma: '',
+      fecha: '',
+      hora: '',
+    });
   }
 
- 
   return (
     <Fragment>
       <h1>Crear cita</h1>
@@ -70,8 +67,7 @@ const Formulario = ({ crearCita }) => {
           className="u-full-width"
           placeholder="Nombre Dueño de las mascota"
           value={propietario}
-          onChange={actualizarState}
-        />
+          onChange={actualizarState} />
         <label>sintomas</label>
         <input
           type="text"
@@ -90,18 +86,10 @@ const Formulario = ({ crearCita }) => {
           onChange={actualizarState}
         />
         <label>Horario</label>
-        <input
-          type="time"
-          name="hora"
-          className="u-full-width"
-          value={hora}
-          onChange={actualizarState}
+        <input type="time" name="hora" className="u-full-width" value={hora} onChange={actualizarState}
         />
 
-        <button
-          type="submit"
-          className="u-full-width button-primary"
-        >
+        <button type="submit" className="u-full-width button-primary" >
           Crear cita
         </button>
       </form>
@@ -109,5 +97,9 @@ const Formulario = ({ crearCita }) => {
 
   );
 }
+//ejemplo de documentacion
 
+Formulario.propTypes = {
+  crearCita: PropTypes.func.isRequired
+}
 export default Formulario;
